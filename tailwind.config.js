@@ -18,6 +18,7 @@ module.exports = {
     extend: {
       colors: {
         'bgcolor': '#f4f4f4',
+        'brickwall': '#c24832',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -59,6 +60,7 @@ module.exports = {
       },
       backgroundImage: {
         'fundoPastel': "url('/fundoPastel.jpg')",
+        'stylish': "url('/stylish.png')",
       },
       keyframes: {
         "accordion-down": {
