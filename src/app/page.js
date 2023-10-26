@@ -1,5 +1,9 @@
 import Image from 'next/image'
 import Menuzinho from '@/components/menu'
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 
 export default function Home() {
   return (
@@ -20,9 +24,9 @@ export default function Home() {
           <div className='h-full w-full flex justify-center items-center border-r-4 transition-all duration-150 hover:bg-slate-100 hover:cursor-pointer hover:text-[2.3rem]'>
             <a href='#doce' className='w-full h-full flex justify-center items-center align-middle text-center hover:text-slate-900'>Doce</a>
           </div>
-            <div className='h-full w-full flex justify-center items-center border-r-4 transition-all duration-150 hover:bg-slate-100 hover:cursor-pointer hover:text-[2.3rem]'>
-              <a href='#refri' className='w-full h-full flex justify-center items-center align-middle text-center hover:text-slate-900'>Refri</a>
-            </div>
+          <div className='h-full w-full flex justify-center items-center border-r-4 transition-all duration-150 hover:bg-slate-100 hover:cursor-pointer hover:text-[2.3rem]'>
+            <a href='#refri' className='w-full h-full flex justify-center items-center align-middle text-center hover:text-slate-900'>Refri</a>
+          </div>
           <div className='h-full w-full flex justify-center items-center transition-all duration-150 hover:bg-slate-100 hover:cursor-pointer hover:text-[2.3rem]'>
             <a href='#aguas' className='w-full h-full flex justify-center items-center align-middle text-center hover:text-slate-900'>Àguas</a>
           </div>
@@ -38,14 +42,42 @@ export default function Home() {
                 ['/pastel de frango.jpg', 'Pastel de frango', 'pastel feito com frango desfiado.', "14,00"],
                 ['/presunto e queijo.jpg', 'Pastel de presunto e queijo', 'massa fina e crocante, é recheado com uma combinação deliciosa de presunto e queijo derretido.', "13,00"],
               ].map(([img, titulo, texto, valor], index) => (
-                <div className='p-0 basis-0 grow-0 relative bg-white rounded-xl shadow-md hover:shadow-2xl cursor-pointer select-none'>
-                  <img src={img} className='aspect-square h-full max-h-[200px] p-2 rounded-xl float-right' />
-                  <h2 className='text-[2rem] font-black mb-[5px] px-[0.625rem] pt-[8px] text-2'>{titulo}</h2>
-                  <p className='pl-[10px] pb-[15px] mb-[2.5rem] text-[1.5rem] text-slate-600 whitespace-pre-line break-words'>{texto}</p>
-                  <span className='absolute bottom-0 text-[1.5rem] font-[700] pb-[10px] px-[10px] text-[#909090]'>POR:
-                    <small className='pl-4 pb-[10px] px-[10px] text-[1.5rem] text-black'>R$: {valor}</small>
-                  </span>
-                </div>
+                <Popover>
+                  <PopoverTrigger className='p-0 basis-0 grow-0 relative bg-white rounded-xl shadow-md hover:shadow-2xl cursor-pointer select-none'>
+                    <img src={img} className='aspect-square h-full max-h-[200px] p-2 rounded-xl float-right' />
+                    <h2 className='text-[2rem] font-black mb-[5px] px-[0.625rem] pt-[8px] text-2'>{titulo}</h2>
+                    <p className='pl-[10px] pb-[15px] mb-[2.5rem] text-[1.5rem] text-slate-600 whitespace-pre-line break-words'>{texto}</p>
+                    <span className='absolute bottom-0 left-0 text-[1.5rem] font-[700] pb-[10px] px-[10px] text-[#909090] self-start'>POR:
+                      <small className='pl-4 pb-[10px] px-[10px] text-[1.5rem] text-black'>R$: {valor}</small>
+                    </span>
+                  </PopoverTrigger>
+                  <PopoverContent className="bg-white rounded-xl shadow-md grid grid-cols-2 w-[720px] h-520px">
+                    <div className='flex flex-col justify-center items-center border-r-2 border-slate-300'>
+                      <h2 className='text-[1.5rem] font-black mb-[5px] px-[0.625rem] pt-[8px]'>{titulo}</h2>
+                      <img src={img} className='max-h-[250px] aspect-auto p-2 rounded-xl float-right' />
+                      <p className='pl-[10px] pb-[15px] text-[1.3rem] text-slate-600 whitespace-pre-line break-words'>{texto}</p>
+                    </div>
+                    <div className='flex flex-col scale-90'>
+                      <h2 className='text-[1.5rem] font-black mb-[15px] px-[0.625rem] pt-[8px] self-center'>FAÇA SEU PEDIDO</h2>
+                      <div className='pl-[10px] ml-[10px] bg-slate-200'>
+                        <h2 className='text-[1.5rem] font-black'>Adicionais</h2>
+                        <h3 className=''>Quer algum adicional?</h3>
+                      </div>
+                      <div className='mt-[25px] ml-[10px] text-[20px]'>
+                        blah <br />
+                        blah <br />
+                        blah <br />
+                        blah <br />
+                      </div>
+                      <div className='pl-[10px] mt-[25px] ml-[10px] bg-slate-200'>
+                        <h2 className='text-[1.5rem] font-black'>Observação</h2>
+                        <h3>Utilize somente para observações.</h3>
+                      </div>
+                      <Textarea placeholder="Observação para produto" className="m-[5px] my-[10px]" />
+                      <button className='botao ml-[10px] mt-[10px]'>Adicionar ao carrinho</button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
               ))}
             </div>
           </div>
@@ -56,14 +88,42 @@ export default function Home() {
               {[
                 ['/pastel de chocolate.jpg', 'Pastel doce', 'recheio chocolate creme de avelã.', "12,00"],
               ].map(([img, titulo, texto, valor], index) => (
-                <div className='p-0 basis-0 grow-0 relative bg-white rounded-xl shadow-md hover:shadow-2xl cursor-pointer select-none'>
-                  <img src={img} className='aspect-square h-full max-h-[200px] p-2 rounded-xl float-right' />
-                  <h2 className='text-[2rem] font-black mb-[5px] px-[0.625rem] pt-[8px] text-2'>{titulo}</h2>
-                  <p className='pl-[10px] pb-[15px] mb-[2.5rem] text-[1.5rem] text-slate-600 whitespace-pre-line break-words'>{texto}</p>
-                  <span className='absolute bottom-0 text-[1.5rem] font-[700] pb-[10px] px-[10px] text-[#909090]'>POR:
-                    <small className='pl-4 pb-[10px] px-[10px] text-[1.5rem] text-black'>R$: {valor}</small>
-                  </span>
-                </div>
+                <Popover>
+                  <PopoverTrigger className='p-0 basis-0 grow-0 relative bg-white rounded-xl shadow-md hover:shadow-2xl cursor-pointer select-none'>
+                    <img src={img} className='aspect-square h-full max-h-[200px] p-2 rounded-xl float-right' />
+                    <h2 className='text-[2rem] font-black mb-[5px] px-[0.625rem] pt-[8px] text-2'>{titulo}</h2>
+                    <p className='pl-[10px] pb-[15px] mb-[2.5rem] text-[1.5rem] text-slate-600 whitespace-pre-line break-words'>{texto}</p>
+                    <span className='absolute bottom-0 left-0 text-[1.5rem] font-[700] pb-[10px] px-[10px] text-[#909090] self-start'>POR:
+                      <small className='pl-4 pb-[10px] px-[10px] text-[1.5rem] text-black'>R$: {valor}</small>
+                    </span>
+                  </PopoverTrigger>
+                  <PopoverContent className="bg-white rounded-xl shadow-md grid grid-cols-2 w-[720px]">
+                    <div className='flex flex-col justify-center items-center border-r-2 border-slate-300'>
+                      <h2 className='text-[1.5rem] font-black mb-[5px] px-[0.625rem] pt-[8px]'>{titulo}</h2>
+                      <img src={img} className='max-h-[250px] aspect-auto p-2 rounded-xl float-right' />
+                      <p className='pl-[10px] pb-[15px] text-[1.3rem] text-slate-600 whitespace-pre-line break-words'>{texto}</p>
+                    </div>
+                    <div className='flex flex-col scale-90'>
+                      <h2 className='text-[1.5rem] font-black mb-[15px] px-[0.625rem] pt-[8px] self-center'>FAÇA SEU PEDIDO</h2>
+                      <div className='pl-[10px] ml-[10px] bg-slate-200'>
+                        <h2 className='text-[1.5rem] font-black'>Adicionais</h2>
+                        <h3 className=''>Quer algum adicional?</h3>
+                      </div>
+                      <div className='mt-[25px] ml-[10px] text-[20px]'>
+                        blah <br />
+                        blah <br />
+                        blah <br />
+                        blah <br />
+                      </div>
+                      <div className='pl-[10px] mt-[25px] ml-[10px] bg-slate-200'>
+                        <h2 className='text-[1.5rem] font-black'>Observação</h2>
+                        <h3>Utilize somente para observações.</h3>
+                      </div>
+                      <Textarea placeholder="Observação para produto" className="m-[5px] my-[10px]" />
+                      <button className='botao ml-[10px]'>Adicionar ao carrinho</button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
               ))}
             </div>
           </div>
@@ -74,14 +134,42 @@ export default function Home() {
               {[
                 ['/coca cola 1l.png', 'refrigerante 1l', '', '10,00'],
               ].map(([img, titulo, texto, valor], index) => (
-                <div className='p-0 basis-0 grow-0 relative bg-white rounded-xl shadow-md hover:shadow-2xl cursor-pointer select-none'>
-                  <img src={img} className='aspect-square h-full max-h-[200px] p-2 rounded-xl float-right' />
-                  <h2 className='text-[2rem] font-black mb-[5px] px-[0.625rem] pt-[8px] text-2'>{titulo}</h2>
-                  <p className='pl-[10px] pb-[15px] mb-[2.5rem] text-[1.5rem] text-slate-600 whitespace-pre-line break-words'>{texto}</p>
-                  <span className='absolute bottom-0 text-[1.5rem] font-[700] pb-[10px] px-[10px] text-[#909090]'>POR:
-                    <small className='pl-4 pb-[10px] px-[10px] text-[1.5rem] text-black'>R$: {valor}</small>
-                  </span>
-                </div>
+                <Popover>
+                  <PopoverTrigger className='p-0 basis-0 grow-0 relative bg-white rounded-xl shadow-md hover:shadow-2xl cursor-pointer select-none'>
+                    <img src={img} className='aspect-square h-full max-h-[200px] p-2 rounded-xl float-right' />
+                    <h2 className='text-[2rem] font-black mb-[5px] px-[0.625rem] pt-[8px] text-2'>{titulo}</h2>
+                    <p className='pl-[10px] pb-[15px] mb-[2.5rem] text-[1.5rem] text-slate-600 whitespace-pre-line break-words'>{texto}</p>
+                    <span className='absolute bottom-0 left-0 text-[1.5rem] font-[700] pb-[10px] px-[10px] text-[#909090] self-start'>POR:
+                      <small className='pl-4 pb-[10px] px-[10px] text-[1.5rem] text-black'>R$: {valor}</small>
+                    </span>
+                  </PopoverTrigger>
+                  <PopoverContent className="bg-white rounded-xl shadow-md grid grid-cols-2 w-[720px]">
+                    <div className='flex flex-col justify-center items-center border-r-2 border-slate-300'>
+                      <h2 className='text-[1.5rem] font-black mb-[5px] px-[0.625rem] pt-[8px]'>{titulo}</h2>
+                      <img src={img} className='max-h-[250px] aspect-auto p-2 rounded-xl float-right' />
+                      <p className='pl-[10px] pb-[15px] text-[1.3rem] text-slate-600 whitespace-pre-line break-words'>{texto}</p>
+                    </div>
+                    <div className='flex flex-col scale-90'>
+                      <h2 className='text-[1.5rem] font-black mb-[15px] px-[0.625rem] pt-[8px] self-center'>FAÇA SEU PEDIDO</h2>
+                      <div className='pl-[10px] ml-[10px] bg-slate-200'>
+                        <h2 className='text-[1.5rem] font-black'>Adicionais</h2>
+                        <h3 className=''>Quer algum adicional?</h3>
+                      </div>
+                      <div className='mt-[25px] ml-[10px] text-[20px]'>
+                        blah <br />
+                        blah <br />
+                        blah <br />
+                        blah <br />
+                      </div>
+                      <div className='pl-[10px] mt-[25px] ml-[10px] bg-slate-200'>
+                        <h2 className='text-[1.5rem] font-black'>Observação</h2>
+                        <h3>Utilize somente para observações.</h3>
+                      </div>
+                      <Textarea placeholder="Observação para produto" className="m-[5px] my-[10px]" />
+                      <button className='botao ml-[10px]'>Adicionar ao carrinho</button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
               ))}
             </div>
           </div>
@@ -94,14 +182,42 @@ export default function Home() {
                 ['/Aquarius fresh limão 500ml.png', 'Aquarius fresh limão 500ml', '', '6,00'],
                 ['/agua com gás.png', 'agua com gás', '', '3,50'],
               ].map(([img, titulo, texto, valor], index) => (
-                <div className='p-0 basis-0 grow-0 relative bg-white rounded-xl shadow-md hover:shadow-2xl cursor-pointer select-none'>
-                  <img src={img} className='aspect-square h-full max-h-[200px] p-2 rounded-xl float-right' />
-                  <h2 className='text-[2rem] font-black mb-[5px] px-[0.625rem] pt-[8px] text-2'>{titulo}</h2>
-                  <p className='pl-[10px] pb-[15px] mb-[2.5rem] text-[1.5rem] text-slate-600 whitespace-pre-line break-words'>{texto}</p>
-                  <span className='absolute bottom-0 text-[1.5rem] font-[700] pb-[10px] px-[10px] text-[#909090]'>POR:
-                    <small className='pl-4 pb-[10px] px-[10px] text-[1.5rem] text-black'>R$: {valor}</small>
-                  </span>
-                </div>
+                <Popover>
+                  <PopoverTrigger className='p-0 basis-0 grow-0 relative bg-white rounded-xl shadow-md hover:shadow-2xl cursor-pointer select-none'>
+                    <img src={img} className='aspect-square h-full max-h-[200px] p-2 rounded-xl float-right' />
+                    <h2 className='text-[2rem] font-black mb-[5px] px-[0.625rem] pt-[8px] text-2'>{titulo}</h2>
+                    <p className='pl-[10px] pb-[15px] mb-[2.5rem] text-[1.5rem] text-slate-600 whitespace-pre-line break-words'>{texto}</p>
+                    <span className='absolute bottom-0 left-0 text-[1.5rem] font-[700] pb-[10px] px-[10px] text-[#909090] self-start'>POR:
+                      <small className='pl-4 pb-[10px] px-[10px] text-[1.5rem] text-black'>R$: {valor}</small>
+                    </span>
+                  </PopoverTrigger>
+                  <PopoverContent className="bg-white rounded-xl shadow-md grid grid-cols-2 w-[720px]">
+                    <div className='flex flex-col justify-center items-center border-r-2 border-slate-300'>
+                      <h2 className='text-[1.5rem] font-black mb-[5px] px-[0.625rem] pt-[8px]'>{titulo}</h2>
+                      <img src={img} className='max-h-[250px] aspect-auto p-2 rounded-xl float-right' />
+                      <p className='pl-[10px] pb-[15px] text-[1.3rem] text-slate-600 whitespace-pre-line break-words'>{texto}</p>
+                    </div>
+                    <div className='flex flex-col scale-90'>
+                      <h2 className='text-[1.5rem] font-black mb-[15px] px-[0.625rem] pt-[8px] self-center'>FAÇA SEU PEDIDO</h2>
+                      <div className='pl-[10px] ml-[10px] bg-slate-200'>
+                        <h2 className='text-[1.5rem] font-black'>Adicionais</h2>
+                        <h3 className=''>Quer algum adicional?</h3>
+                      </div>
+                      <div className='mt-[25px] ml-[10px] text-[20px]'>
+                        blah <br />
+                        blah <br />
+                        blah <br />
+                        blah <br />
+                      </div>
+                      <div className='pl-[10px] mt-[25px] ml-[10px] bg-slate-200'>
+                        <h2 className='text-[1.5rem] font-black'>Observação</h2>
+                        <h3>Utilize somente para observações.</h3>
+                      </div>
+                      <Textarea placeholder="Observação para produto" className="m-[5px] my-[10px]" />
+                      <button className='botao ml-[10px]'>Adicionar ao carrinho</button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
               ))}
             </div>
           </div>
