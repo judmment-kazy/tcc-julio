@@ -1,7 +1,10 @@
+"use client"
+
 import Image from 'next/image'
 import Menuzinho from '@/components/menu'
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, } from "@/components/ui/tooltip"
 
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 
@@ -37,14 +40,17 @@ export default function Home() {
             <h1 className='text-black text-[3rem] pb-2 font-black tracking-wide select-none'>Pasteis</h1>
             <div className='p-0 mb-[50px] m-0 h-full w-[90dvw] grid grid-cols-2 gap-[30px] justify-center text-start'>
               {[
-                ['/pastelDeCarne.jpg', 'Pastel de carne', 'um pastel feito de carne moida', "16,00"],
-                ['/pastel de queijo.webp', 'Pastel de queijo', 'massa fina e crocante, é recheado com uma combinação deliciosa de  queijo derretido.', "15,00"],
-                ['/pastel de frango.jpg', 'Pastel de frango', 'pastel feito com frango desfiado.', "14,00"],
-                ['/presunto e queijo.jpg', 'Pastel de presunto e queijo', 'massa fina e crocante, é recheado com uma combinação deliciosa de presunto e queijo derretido.', "13,00"],
-              ].map(([img, titulo, texto, valor], index) => (
+                ['/pastelDeCarne.jpg', 'pastel_com_carne.png', 'Pastel de carne', 'um pastel feito de carne moida', "5,00"],
+                ['/pastel de queijo.webp', 'pastel de queijo.png', 'Pastel de queijo', 'massa fina e crocante, é recheado com uma combinação deliciosa de  queijo derretido.', "5,00"],
+                ['/pastel de frango.jpg', 'pastel_com_frango.png', 'Pastel de frango', 'pastel feito com frango desfiado.', "5,00"],
+                ['/presunto e queijo.jpg', 'pastel_com_presunto_e_queijo.png', 'Pastel de presunto e queijo', 'massa fina e crocante, é recheado com uma combinação deliciosa de presunto e queijo derretido.', "5,00"],
+              ].map(([img, img2, titulo, texto, valor], index) => (
                 <Popover>
-                  <PopoverTrigger className='p-0 basis-0 grow-0 relative bg-white rounded-xl shadow-md hover:shadow-2xl cursor-pointer select-none'>
-                    <img src={img} className='aspect-square h-full max-h-[200px] p-2 rounded-xl float-right' />
+                  <PopoverTrigger className='p-0 basis-0 grow-0 bg-white relative rounded-xl shadow-md hover:shadow-2xl cursor-pointer select-none'>
+                    <div className="relative aspect-square h-full max-h-[200px] p-2 rounded-xl float-right">
+                      <img src={img} className='aspect-square z-10 absolute left-0 top-0 h-full max-h-[200px] p-2 rounded-xl float-right hover:opacity-0 transition-all' />
+                      <img src={img2} className='aspect-square absolute h-full left-0 top-0 max-h-[200px] p-2 rounded-xl float-right' />
+                    </div>
                     <h2 className='text-[2rem] font-black mb-[5px] px-[0.625rem] pt-[8px] text-2'>{titulo}</h2>
                     <p className='pl-[10px] pb-[15px] mb-[2.5rem] text-[1.5rem] text-slate-600 whitespace-pre-line break-words'>{texto}</p>
                     <span className='absolute bottom-0 left-0 text-[1.5rem] font-[700] pb-[10px] px-[10px] text-[#909090] self-start'>POR:
@@ -64,10 +70,10 @@ export default function Home() {
                         <h3 className=''>Quer algum adicional?</h3>
                       </div>
                       <div className='mt-[25px] ml-[10px] text-[20px]'>
-                        blah <br />
-                        blah <br />
-                        blah <br />
-                        blah <br />
+                        bacon +<br />
+                        ovo +<br />
+                        calabresa +<br />
+                        milho +<br />
                       </div>
                       <div className='pl-[10px] mt-[25px] ml-[10px] bg-slate-200'>
                         <h2 className='text-[1.5rem] font-black'>Observação</h2>
@@ -86,11 +92,14 @@ export default function Home() {
             <h1 className='text-black text-[3rem] pb-2 font-black tracking-wide select-none'>Doce</h1>
             <div className='p-0 m-0 h-full w-[90dvw] grid grid-cols-2 gap-[30px] justify-center text-start'>
               {[
-                ['/pastel de chocolate.jpg', 'Pastel doce', 'recheio chocolate creme de avelã.', "12,00"],
-              ].map(([img, titulo, texto, valor], index) => (
+                ['/pastel de chocolate.jpg', 'pastel_de_chocolate.png', 'Pastel doce', 'recheio chocolate creme de avelã.', "8,00"],
+              ].map(([img, img2, titulo, texto, valor], index) => (
                 <Popover>
                   <PopoverTrigger className='p-0 basis-0 grow-0 relative bg-white rounded-xl shadow-md hover:shadow-2xl cursor-pointer select-none'>
-                    <img src={img} className='aspect-square h-full max-h-[200px] p-2 rounded-xl float-right' />
+                  <div className="relative aspect-square h-full max-h-[200px] p-2 rounded-xl float-right">
+                      <img src={img} className='aspect-square z-10 absolute left-0 top-0 h-full max-h-[200px] p-2 rounded-xl float-right hover:opacity-0 transition-all' />
+                      <img src={img2} className='aspect-square absolute h-full left-0 top-0 max-h-[200px] p-2 rounded-xl float-right' />
+                    </div>
                     <h2 className='text-[2rem] font-black mb-[5px] px-[0.625rem] pt-[8px] text-2'>{titulo}</h2>
                     <p className='pl-[10px] pb-[15px] mb-[2.5rem] text-[1.5rem] text-slate-600 whitespace-pre-line break-words'>{texto}</p>
                     <span className='absolute bottom-0 left-0 text-[1.5rem] font-[700] pb-[10px] px-[10px] text-[#909090] self-start'>POR:
@@ -110,10 +119,10 @@ export default function Home() {
                         <h3 className=''>Quer algum adicional?</h3>
                       </div>
                       <div className='mt-[25px] ml-[10px] text-[20px]'>
-                        blah <br />
-                        blah <br />
-                        blah <br />
-                        blah <br />
+                        canela +<br />
+                        morango +<br />
+                        banana +<br />
+                        dois amores + <br />
                       </div>
                       <div className='pl-[10px] mt-[25px] ml-[10px] bg-slate-200'>
                         <h2 className='text-[1.5rem] font-black'>Observação</h2>
@@ -124,6 +133,7 @@ export default function Home() {
                     </div>
                   </PopoverContent>
                 </Popover>
+
               ))}
             </div>
           </div>
@@ -151,21 +161,11 @@ export default function Home() {
                     </div>
                     <div className='flex flex-col scale-90'>
                       <h2 className='text-[1.5rem] font-black mb-[15px] px-[0.625rem] pt-[8px] self-center'>FAÇA SEU PEDIDO</h2>
-                      <div className='pl-[10px] ml-[10px] bg-slate-200'>
-                        <h2 className='text-[1.5rem] font-black'>Adicionais</h2>
-                        <h3 className=''>Quer algum adicional?</h3>
+                      <div className='pl-[10px] ml-[10px] bg-slate-200 mb-[70px]'>
                       </div>
-                      <div className='mt-[25px] ml-[10px] text-[20px]'>
-                        blah <br />
-                        blah <br />
-                        blah <br />
-                        blah <br />
-                      </div>
-                      <div className='pl-[10px] mt-[25px] ml-[10px] bg-slate-200'>
-                        <h2 className='text-[1.5rem] font-black'>Observação</h2>
-                        <h3>Utilize somente para observações.</h3>
-                      </div>
-                      <Textarea placeholder="Observação para produto" className="m-[5px] my-[10px]" />
+
+
+
                       <button className='botao ml-[10px]'>Adicionar ao carrinho</button>
                     </div>
                   </PopoverContent>
@@ -199,22 +199,14 @@ export default function Home() {
                     </div>
                     <div className='flex flex-col scale-90'>
                       <h2 className='text-[1.5rem] font-black mb-[15px] px-[0.625rem] pt-[8px] self-center'>FAÇA SEU PEDIDO</h2>
-                      <div className='pl-[10px] ml-[10px] bg-slate-200'>
-                        <h2 className='text-[1.5rem] font-black'>Adicionais</h2>
-                        <h3 className=''>Quer algum adicional?</h3>
+                      <div className='pl-[10px] ml-[10px] bg-slate-200 mb-[70px]'>
+
+
                       </div>
-                      <div className='mt-[25px] ml-[10px] text-[20px]'>
-                        blah <br />
-                        blah <br />
-                        blah <br />
-                        blah <br />
-                      </div>
-                      <div className='pl-[10px] mt-[25px] ml-[10px] bg-slate-200'>
-                        <h2 className='text-[1.5rem] font-black'>Observação</h2>
-                        <h3>Utilize somente para observações.</h3>
-                      </div>
-                      <Textarea placeholder="Observação para produto" className="m-[5px] my-[10px]" />
-                      <button className='botao ml-[10px]'>Adicionar ao carrinho</button>
+
+
+
+                      <button className='botao ml-[10px] '>Adicionar ao carrinho</button>
                     </div>
                   </PopoverContent>
                 </Popover>
